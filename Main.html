@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Style Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/video.css">
+    <style>
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+        .video {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .playlist {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .playlist-item img {
+            width: 80px;
+            height: 45px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .playlist-item:hover {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="images/Logo/Computer-Guru-Training-Institute-IDPL-Shyampur-Rishikesh-Uttarakhand.png" alt="" width=400"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+<section class="video-banner">
+    <h1>Hindi Video Gallery</h1>
+</section>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Video Section -->
+        <div class="col-md-8">
+            <div class="video-container">
+                <video class="video" controls>
+                    <source src="C:\Users\Dell\Desktop\ComputerGuru\school\Videos\Hindi Rhymes\Bandar Mama Pahan Pajama.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3 class="mt-3"><strong>Hindi Video Gallery</strong></h3>
+                <p>
+            </div>
+        </div>
+
+        <!-- Playlist Section -->
+        <div class="col-md-4">
+            <h5 class="mb-3"><strong>Hindi Playlist</strong></h5>
+
+                
+                <div class="playlist">
+                    <!-- Playlist items will be dynamically added here -->
+               
+            </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Include HindiData.js -->
+<script src="js/Hindidata.js"></script>
+
+
+
+<script>
+    // Function to dynamically create playlist
+    function loadPlaylist() {
+        const playlistContainer = document.querySelector(".playlist");
+
+        videoData.forEach((video, index) => {
+            const playlistItem = document.createElement("div");
+            playlistItem.classList.add("playlist-item");
+            playlistItem.dataset.index = index; // Store index for reference
+            playlistItem.innerHTML = `
+                <img src="${video.thumbnail}" alt="${video.title}">
+                <div>
+                    <p class="mb-0">${video.title}</p>
+                </div>
+            `;
+            playlistContainer.appendChild(playlistItem);
+        });
+    }
+
+    // Function to play video
+    function playVideo(index) {
+        const videoPlayer = document.querySelector(".video");
+        const videoTitle = document.querySelector(".video-container h3");
+        const selectedVideo = videoData[index];
+
+        videoPlayer.src = selectedVideo.source;
+        videoTitle.textContent = selectedVideo.title;
+        videoPlayer.play();
+    }
+
+    // Attach event listeners
+    document.addEventListener("DOMContentLoaded", () => {
+        loadPlaylist(); // Load playlist items dynamically
+
+        document.querySelector(".playlist").addEventListener("click", (e) => {
+            const clickedItem = e.target.closest(".playlist-item");
+            if (clickedItem) {
+                const index = clickedItem.dataset.index;
+                playVideo(index);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

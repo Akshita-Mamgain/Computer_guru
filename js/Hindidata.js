@@ -1,7 +1,7 @@
 const videoData = [
     {
         title: "Bandar Mama Pahan Pajama",
-        thumbnail: "../images/Hindi Rhymes/Bandar Mama Pahan Pajama.png",
+        thumbnail: "../images/Hindi Rhymes/Bandar-Mama-Pahan-Pajama.png",
         source: "../Videos/Hindi Rhymes/Bandar Mama Pahan Pajama.mp4",
     },
     {
@@ -26,3 +26,25 @@ const videoData = [
     },
     // Add more video objects up to 20
 ];
+function playVideo(index) {
+    const videoPlayer = document.querySelector(".video");
+    const videoTitle = document.querySelector(".video-container h3");
+    const selectedVideo = videoData[index];
+
+    videoPlayer.src = selectedVideo.source;
+    videoTitle.textContent = selectedVideo.title;
+    videoPlayer.play();
+}
+
+// Attach event listeners
+document.addEventListener("DOMContentLoaded", () => {
+    loadPlaylist(); // Load playlist items dynamically
+
+    document.querySelector(".playlist").addEventListener("click", (e) => {
+        const clickedItem = e.target.closest(".playlist-item");
+        if (clickedItem) {
+            const index = clickedItem.dataset.index;
+            playVideo(index);
+        }
+    });
+});
